@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+  <h2 class="text-center">Запросы к ORM</h2>
+  <p class="text-center"><a href="/">На главную</a>&nbsp|&nbsp<a href="/todo/">Управление задачами</a>&nbsp|&nbsp<a href="/request/">Запросы к ORM</a></p>
+{% endblock %}
+{% block content %}
+{#  get_all_task, task_for_day, count_task_for_day, get_user, \#}
+{#    get_user_task_completed, get_user_task_uncompleted #}
+
+<h4>Cписок выполненных задач за определенный день</h4>
+<p>определенный день = последние 24 часа</p>
+{% if task_for_day %}
+  <div class="row">
+    {% for item in task_for_day %}
+    <div class="col-md-12">
+      <p>{{ item.task_title }} -- {{ item.task_time }}</p>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="font-weight-bold">Не найдено</p>
+{% endif %}
+<hr>
+<h4>Число всех выполненных задач за определенный день</h4>
+<p>определенный день = последние 24 часа</p>
+{% if count_task_for_day %}
+  <div class="row">
+    <div class="col-md-12">
+      <p>{{ count_task_for_day }}</p>
+    </div>
+  </div>
+{% else %}
+  <p class="font-weight-bold">Не найдено</p>
+{% endif %}
+<hr>
+<h4>Список выполненных задач определенного сотрудника (имя задачи, время, имя сотрудника)</h4>
+<p>определенный сотрудник = последний зарегестрированный пользователь</p>
+{% if get_user_task_completed %}
+  <div class="row">
+    {% for item in get_user_task_completed %}
+    <div class="col-md-12">
+      <p>{{ item.task_title }} -- {{ item.task_time }}, {{ item.user }}, Completed: {{ item.task_is_completed }}</p>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="font-weight-bold">Не найдено</p>
+{% endif %}
+<hr>
+<h4>Cписок невыполненных задач определенного сотрудника за любой день</h4>
+<p>определенный сотрудник = последний зарегестрированный пользователь</p>
+{% if get_user_task_uncompleted %}
+  <div class="row">
+    {% for item in get_user_task_uncompleted %}
+    <div class="col-md-12">
+      <p>{{ item.task_title }} -- {{ item.task_time }}, {{ item.user }}, Completed: {{ item.task_is_completed }}</p>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="font-weight-bold">Не найдено</p>
+{% endif %}
+{% endblock %}

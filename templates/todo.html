@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_title %}
+  <h2 class="text-center">Управление задачами</h2>
+  <p class="text-center"><a href="/">На главную</a>&nbsp|&nbsp<a href="/todo/">Управление задачами</a>&nbsp|&nbsp<a href="/request/">Запросы к ORM</a></p>
+{% endblock %}
+{% block content %}
+  {% if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+  {% if request.user.is_authenticated %}
+    <h3 class="mb-4">Список задач на сегодня для пользователя <span class="font-weight-bold">{{ request.user }}</span></h3>
+    <div class="row">
+      <div class="col-md-12">
+        <p><span class="font-italic">Текущая задача:</span> <br><br> <span class="font-weight-bold">{% if task_item %}{{task_item}}{% else %}--- Текущая задача не найдена! ---{% endif %}</span></p>
+        {% if task_item %}
+        <form action="." method="post">
+          {% csrf_token %}
+
+          {% if task_form.non_field_errors %}
+            <p class="text-danger">{{ task_form.non_field_errors }}</p>
+          {% endif %}
+
+          {% for field in task_form %}
+              <p class="fieldWrapper">
+                  {% if field.errors %}>
+                    {{ field.errors }}
+                  {% endif %}
+              </p>
+          {% endfor %}
+
+          <div class="form-check">
+            <label for="id_task_is_completed" class="form-check-label">
+              <input type="checkbox" name="task_is_completed" required="" id="id_task_is_completed" class="form-check-input">
+              <span style="position:relative;top:-2px;">выполненно</span>
+            </label>
+          </div>
+          <button type="submit" class="btn">Отправить</button>
+        </form>
+        <hr>
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <p><span class="font-italic">Очередные задачи:</span></p>
+      </div>
+    </div>
+    {% if task_list.first %}
+      {% for task in task_list %}
+        <div class="row">
+          <div class="col-md-6">
+            <p class="font-weight-bold">{{ task.task_title }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="row">
+        <div class="col-md-6">
+          <p class="font-weight-bold">--- Очередные задачи не найдены! ---</p>
+        </div>
+      </div>
+    {% endif %}
+
+  {% else %}
+    <p>Авторизуйтесь для просмотра списка задачь.</p>
+  {% endif %}
+{% endblock %}

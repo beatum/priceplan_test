@@ -1,0 +1,69 @@
+{% spaceless %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Test Case</title>
+    {% block stylesheet %}
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    {% endblock %}
+  </head>
+  <style>body{overflow-y: scroll;}</style>
+  <body>
+
+    <div class="container pt-4" id="head-container">
+      <!-- Head here -->
+      {% block head %}
+      <div class="row pb-4">
+        <div class="col-md-12">
+          <div class="jumbotron">
+            <h1 class="text-center">Приветсвую команду PricePlan!</h1>
+            <p class="text-center pt-3"><a href="mailto:direct@beatum-group.ru">@beatum</a> - Иван Семерняков</p>
+          </div>
+          <hr>
+          {% block page_title %}
+            <h2 class="text-center">Ответы на вопросы</h2>
+            <p class="text-center"><a href="/">На главную</a>&nbsp|&nbsp<a href="/todo/">Управление задачами</a>&nbsp|&nbsp<a href="/request/">Запросы к ORM</a></p>
+          {% endblock %}
+          <hr>
+        </div>
+      </div>
+      {% endblock %}
+    </div>
+
+    <div class="container" id="main-container">
+      <!-- Content here -->
+      <div class="row">
+        <div class="col-md-12">
+          {% block content %}
+
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="footer-container">
+      <!-- Footer here -->
+      {% block footer %}
+        <div class="row ">
+          <div class="col-md-12">
+            <hr>
+            <p class="pl-4 pb-4 text-center"><small>12 Апреля 2017, Семерняков И.С. <br> Россия, Краснодар.</small></p>
+          </div>
+        </div>
+      {% endblock %}
+    </div>
+
+    {% block javascript %}
+      <!-- jQuery first, then Tether, then Bootstrap JS. -->
+      <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    {% endblock %}
+  </body>
+</html>
+{% endspaceless %}
